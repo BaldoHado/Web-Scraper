@@ -8,7 +8,6 @@ def submit():
     print(stock_name)
     stat_header = tk.Label(text=f'Summary of the Statistics of {stock_name}')
     stat_header.pack()
-    stat_header.pack()
 
 
 # create the main window
