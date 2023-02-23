@@ -27,7 +27,9 @@ def get_cur_price(ticker):
     price = soup.find_all('fin-streamer', class_="Fw(b) Fz(36px) Mb(-4px) D(ib)")
     inc = soup.find_all('fin-streamer', class_="Fw(500) Pstart(8px) Fz(24px)")
     res = f'Current Price: {price[0].text} | Change: {inc[0].text} {inc[1].text}'
-    return res
+    if '+' in inc[0].text:
+        return res, 'green'
+    return res, 'red'
 
 
 def existing_stock(ticker):

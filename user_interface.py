@@ -34,7 +34,7 @@ class UserI:
         self.stat_header = tk.Label(text=f'Summary of the Statistics of {stock_name}')
         UserI.insert_data(self, stock_name)
         self.stat_header.grid(row=1, column=0, pady=2, padx=2, columnspan=5)
-        self.cur_price = tk.Label(text=ss.get_cur_price(stock_name))
+        self.cur_price = tk.Label(text=ss.get_cur_price(stock_name)[0], fg=ss.get_cur_price(stock_name)[1])
         self.cur_price.grid(row=2, column=0, pady=2, columnspan=5)
         UserI.pack_display(self)
 
