@@ -21,13 +21,12 @@ def existing_stock(ticker):
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0"
     }
-    URL = f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'
-    page = requests.get(URL, headers=headers, allow_redirects=False).content
-    for k in page.history:
-        print(k.url)
-    #soup = BeautifulSoup(page, 'html.parser')
-    #area_data = soup.find_all("td")
-    #print(area_data)
+    URL = f'https://finance.yahoo.com/lookup?s={ticker}'
+    page = requests.get(URL, headers=headers, allow_redirects=False)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    area_data = soup.find_all("td")
+    for k in area_data:
+        if k.text == ticker:
+            return True
+    return False
 
-
-existing_stock('AFFAEF')
