@@ -17,6 +17,18 @@ def get_summary(ticker):
     return res
 
 
+def get_cur_price(ticker):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0"
+    }
+    URL = f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'
+    page = requests.get(URL, headers=headers).content
+    soup = BeautifulSoup(page, 'html.parser')
+    area_table = soup.find_all('fin-streamer', class_="Fw(b) Fz(36px) Mb(-4px) D(ib)")
+    return area_table[0].text
+
+
+
 def existing_stock(ticker):
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0"
@@ -29,4 +41,3 @@ def existing_stock(ticker):
         if k.text == ticker:
             return True
     return False
-
