@@ -10,7 +10,7 @@ class UserI:
         self.frame = tk.Frame(self.master)
         self.master.title('Stock Viewer')
         self.master.geometry('400x300')
-        self.en_val = tk.Label(self.master, text='Enter a Value')
+        self.en_val = tk.Label(self.master, text='Enter a Stock Ticker:')
         self.inp_stock = tk.Entry(self.master)
         self.tree = ttk.Treeview(self.master, columns=("Header", "Value"), show='headings')
         self.bt_submit = tk.Button(self.master, text='Submit', command=lambda: UserI.submit(self))
@@ -22,9 +22,10 @@ class UserI:
 
     def submit(self):
         self.tree.delete(*self.tree.get_children())
-        stock_name = self.inp_stock.get()
+        stock_name = self.inp_stock.get().upper()
         if self.stat_header is not None:
             self.stat_header.grid_forget()
+            self.cur_price.grid_forget()
         if not ss.existing_stock(stock_name):
             self.stat_header = tk.Label(text=f'{stock_name} is not a valid ticker')
             self.stat_header.grid(row=1, column=0, pady=2, padx=2, columnspan=5)
@@ -33,7 +34,7 @@ class UserI:
         self.stat_header = tk.Label(text=f'Summary of the Statistics of {stock_name}')
         UserI.insert_data(self, stock_name)
         self.stat_header.grid(row=1, column=0, pady=2, padx=2, columnspan=5)
-        self.cur_price = tk.Label(text=f'Current Price: {ss.get_cur_price(stock_name)}')
+        self.cur_price = tk.Label(text=ss.get_cur_price(stock_name))
         self.cur_price.grid(row=2, column=0, pady=2, columnspan=5)
         UserI.pack_display(self)
 

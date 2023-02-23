@@ -24,9 +24,10 @@ def get_cur_price(ticker):
     URL = f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'
     page = requests.get(URL, headers=headers).content
     soup = BeautifulSoup(page, 'html.parser')
-    area_table = soup.find_all('fin-streamer', class_="Fw(b) Fz(36px) Mb(-4px) D(ib)")
-    return area_table[0].text
-
+    price = soup.find_all('fin-streamer', class_="Fw(b) Fz(36px) Mb(-4px) D(ib)")
+    inc = soup.find_all('fin-streamer', class_="Fw(500) Pstart(8px) Fz(24px)")
+    res = f'Current Price: {price[0].text} | Change: {inc[0].text} {inc[1].text}'
+    return res
 
 
 def existing_stock(ticker):
