@@ -2,11 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def get_summary():
+def get_summary(ticker):
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0"
     }
-    URL = "https://finance.yahoo.com/quote/AMD?p=AMD"
+    URL = f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'
     page = requests.get(URL, headers=headers).content
     soup = BeautifulSoup(page, 'html.parser')
     area_table = soup.select("table > tbody > td")
