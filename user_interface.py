@@ -33,6 +33,7 @@ class UserI:
         self.tree.grid(row=2, column=0, rowspan=5, columnspan=5)
 
     def insert_data(self, ticker):
+
         ins = ss.get_summary(ticker)
         for k in ins:
             self.tree.insert('', tk.END, values=k)
